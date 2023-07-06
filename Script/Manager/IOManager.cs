@@ -93,7 +93,7 @@ namespace ArmyAnt.Manager {
         }
 
         public static UnityEngine.Networking.UnityWebRequest HttpPost(string url, string fieldData) {
-            var request = UnityEngine.Networking.UnityWebRequest.Post(url, fieldData);
+            var request = UnityEngine.Networking.UnityWebRequest.PostWwwForm(url, fieldData);
             return request;
         }
 
