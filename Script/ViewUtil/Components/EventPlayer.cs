@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Xml.Linq;
 
 using UnityEngine;
 
 namespace ArmyAnt.ViewUtil.Components
 {
-    public class EventPlayer<T_Event, T_Data> : MonoBehaviour
+    public class EventPlayer<T_Event, T_Key> : MonoBehaviour
     {
         protected virtual void Awake()
         {
@@ -28,13 +27,13 @@ namespace ArmyAnt.ViewUtil.Components
                     var list = listenerMap[msg._event];
                     foreach (var listener in list)
                     {
-                        listener.Value.callback(msg._event, msg.classData);
+                        listener.Value.callback(msg._event, msg.key, msg.classData);
                     }
                 }
             }
         }
 
-        public int Listen(T_Event _event, Action<T_Event, T_Data[]> callback)
+        public int Listen(T_Event _event, Action<T_Event, T_Key, object[]> callback)
         {
             if (callback == null)
             {
@@ -73,12 +72,13 @@ namespace ArmyAnt.ViewUtil.Components
             return false;
         }
 
-        public bool Notify(T_Event _event, params T_Data[] param)
+        public bool Notify(T_Event _event, T_Key key, params object[] param)
         {
             var msg = new EventData
             {
                 _event = _event,
-                classData = new T_Data[param.Length],
+                key = key,
+                classData = new object[param.Length],
             };
             for (int i = 0; i < param.Length; ++i)
             {
@@ -94,13 +94,14 @@ namespace ArmyAnt.ViewUtil.Components
         private struct EventData
         {
             public T_Event _event;
-            public T_Data[] classData;
+            public T_Key key;
+            public object[] classData;
         }
 
         private struct ListenerData
         {
             public T_Event _event;
-            public Action<T_Event, T_Data[]> callback;
+            public Action<T_Event, T_Key, object[]> callback;
         }
     }
 }
