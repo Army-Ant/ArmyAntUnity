@@ -2,6 +2,9 @@
 
 public class MainMenuExtension
 {
+
+    #region Menu : Directories
+
     [MenuItem("ArmyAnt/Directories/Current Directory")]
     public static void Directories_CurrentDirectory()
     {
@@ -46,4 +49,6 @@ public class MainMenuExtension
         EditorUtility.DisplayDialog("功能未完成", "功能在此平台上没有完成！", "ok");
 #endif
     }
+
+    #endregion Menu : Directories
 }
