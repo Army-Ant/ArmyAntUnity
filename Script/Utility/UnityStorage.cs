@@ -1,34 +1,25 @@
 using ArmyAnt.IO;
 
-namespace ArmyAnt.Utility
-{
-    public class UnityStorage : IQuickStorage
-    {
-        public void Clear()
-        {
+namespace ArmyAnt.Utility {
+    public class UnityStorage : IQuickStorage {
+        public void Clear() {
             UnityEngine.PlayerPrefs.DeleteAll();
         }
 
-        public T GetItem<T>(string key)
-        {
+        public T GetItem<T>(string key) {
             var json = UnityEngine.PlayerPrefs.GetString(key);
-            if (string.IsNullOrEmpty(json))
-            {
+            if(string.IsNullOrEmpty(json)) {
                 return default;
             }
-            try
-            {
+            try {
                 var ret = UnityEngine.JsonUtility.FromJson<T>(json);
                 return ret;
-            }
-            catch (System.Exception e)
-            {
+            } catch(System.Exception) {
                 return default;
             }
         }
 
-        public void SetItem<T>(string key, T value)
-        {
+        public void SetItem<T>(string key, T value) {
             UnityEngine.PlayerPrefs.SetString(key, UnityEngine.JsonUtility.ToJson(value));
         }
     }
