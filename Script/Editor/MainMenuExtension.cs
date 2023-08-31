@@ -43,7 +43,7 @@ public class MainMenuExtension
 
     private static void ShowInSystemExplorer(string path)
     {
-#if UNITY_EDITOR_OSX
+#if UNITY_EDITOR_OSX || UNITY_EDITOR_WIN
         EditorUtility.RevealInFinder(path);
 #else
         EditorUtility.DisplayDialog("功能未完成", "功能在此平台上没有完成！", "ok");
