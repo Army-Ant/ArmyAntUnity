@@ -1,23 +1,21 @@
-using UnityEditor;
-using UnityEngine;
-
 namespace ArmyAnt.Manager {
     /// <summary>
-    /// …Ë÷√ Ù–‘÷ª∂¡
+    /// ËÆ©Èù¢ÊùøÂ±ûÊÄßÂè™ËØª
     /// </summary>
-    public class InspectorReadOnly : PropertyAttribute {
+    public class InspectorReadOnly : UnityEngine.PropertyAttribute {
 
     }
-
-    [CustomPropertyDrawer(typeof(InspectorReadOnly))]
-    public class ReadOnlyDrawer : PropertyDrawer {
-        public override float GetPropertyHeight(SerializedProperty property, GUIContent label) {
-            return EditorGUI.GetPropertyHeight(property, label, true);
+#if UNITY_EDITOR
+    [UnityEditor.CustomPropertyDrawer(typeof(InspectorReadOnly))]
+    public class ReadOnlyDrawer : UnityEditor.PropertyDrawer {
+        public override float GetPropertyHeight(UnityEditor.SerializedProperty property, UnityEngine.GUIContent label) {
+            return UnityEditor.EditorGUI.GetPropertyHeight(property, label, true);
         }
-        public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
-            GUI.enabled = false;
-            EditorGUI.PropertyField(position, property, label, true);
-            GUI.enabled = true;
+        public override void OnGUI(UnityEngine.Rect position, UnityEditor.SerializedProperty property, UnityEngine.GUIContent label) {
+            UnityEngine.GUI.enabled = false;
+            UnityEditor.EditorGUI.PropertyField(position, property, label, true);
+            UnityEngine.GUI.enabled = true;
         }
     }
+#endif
 }

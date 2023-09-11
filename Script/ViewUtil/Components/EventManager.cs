@@ -1,25 +1,17 @@
 ﻿using System.Collections.Generic;
+using ArmyAnt.ProcessController;
 
 namespace ArmyAnt.ViewUtil.Components {
 
-    public class EventManager<T_EventID> : UnityEngine.MonoBehaviour {
-        public interface IEventArgs {
-            T_EventID EventId { get; }
-        }
-
+    public class EventManager<T_EventID> : UnityEngine.MonoBehaviour, IEventManager<T_EventID> {
         protected virtual void Update() {
             if (eventMap.Count > 0) {
                 var msg = eventMap.Dequeue();
-                if (listenerMap.ContainsKey(msg.EventId)) {
-                    var list = listenerMap[msg.EventId];
-                    foreach (var listener in list) {
-                        listener.Value.callback(msg);
-                    }
-                }
+                NotifySync(msg);
             }
         }
 
-        public int Listen(T_EventID eventId, System.Action<IEventArgs> callback) {
+        public int Listen(T_EventID eventId, System.Action<IEventManager<T_EventID>.IEventArgs> callback) {
             if (callback == null) {
                 return -1;
             }
@@ -50,17 +42,26 @@ namespace ArmyAnt.ViewUtil.Components {
             return false;
         }
 
-        public bool Notify(IEventArgs args) {
-            eventMap.Enqueue(args);
+        public bool NotifyAsync(IEventManager<T_EventID>.IEventArgs msg) {
+            eventMap.Enqueue(msg);
             return true;
         }
 
-        private readonly Queue<IEventArgs> eventMap = new Queue<IEventArgs>();
+        public void NotifySync(IEventManager<T_EventID>.IEventArgs msg) {
+            if(listenerMap.ContainsKey(msg.EventId)) {
+                var list = listenerMap[msg.EventId];
+                foreach(var listener in list) {
+                    listener.Value.callback(msg);
+                }
+            }
+        }
+
+        private readonly Queue<IEventManager<T_EventID>.IEventArgs> eventMap = new Queue<IEventManager<T_EventID>.IEventArgs>();
         private readonly Dictionary<T_EventID, Dictionary<int, ListenerData>> listenerMap = new Dictionary<T_EventID, Dictionary<int, ListenerData>>();
 
         private struct ListenerData {
             public T_EventID eventId;
-            public System.Action<IEventArgs> callback;
+            public System.Action<IEventManager<T_EventID>.IEventArgs> callback;
         }
     }
 }
