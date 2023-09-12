@@ -28,13 +28,10 @@ namespace ArmyAnt.ViewUtil.Components
             integerStringTagData[tag] = data;
         }
 
-        public int GetIntegerData(string tag)
-        {
-            if (integerStringTagData != null && integerStringTagData.ContainsKey(tag))
-            {
-                return integerStringTagData[tag];
-            }
-            return 0;
+        public int GetIntegerData(string tag) {
+            int ret = default;
+            integerStringTagData?.TryGetValue(tag, out ret);
+            return ret;
         }
 
         public void SetIntegerData(int tag, int data)
@@ -46,13 +43,10 @@ namespace ArmyAnt.ViewUtil.Components
             integerIntegerTagData[tag] = data;
         }
 
-        public int GetIntegerData(int tag)
-        {
-            if (integerIntegerTagData != null && integerIntegerTagData.ContainsKey(tag))
-            {
-                return integerIntegerTagData[tag];
-            }
-            return 0;
+        public int GetIntegerData(int tag) {
+            int ret = default;
+            integerIntegerTagData?.TryGetValue(tag, out ret);
+            return ret;
         }
 
         public void SetIntegerData(int data)
@@ -109,10 +103,9 @@ namespace ArmyAnt.ViewUtil.Components
         }
 
         public GameObject GetGameObject(string tag) {
-            if(gameObjectStringTagData != null && gameObjectStringTagData.ContainsKey(tag)) {
-                return gameObjectStringTagData[tag];
-            }
-            return null;
+            GameObject ret = default;
+            gameObjectStringTagData?.TryGetValue(tag, out ret);
+            return ret;
         }
 
         public void SetGameObject(int tag, GameObject data) {

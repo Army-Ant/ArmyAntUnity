@@ -95,8 +95,8 @@ namespace ArmyAnt.Manager {
                                 var oldValue = axesStatusMap[key.Key];
                                 var newValue = Input.GetAxis(key.Value + i);
                                 axesStatusMap[key.Key] = newValue;
-                                if(joysticksAxisListenerList.ContainsKey(key.Key)) {
-                                    foreach(var funcs in joysticksAxisListenerList[key.Key]) {
+                                if(joysticksAxisListenerList.TryGetValue(key.Key, out var listener)) {
+                                    foreach(var funcs in listener) {
                                         funcs.Value(i, newValue, oldValue);
                                     }
                                 }
@@ -108,8 +108,8 @@ namespace ArmyAnt.Manager {
                                 var oldValue = axesStatusMap[key.Key];
                                 var newValue = Input.GetAxis(key.Value + i);
                                 axesStatusMap[key.Key] = newValue;
-                                if(joysticksAxisListenerList.ContainsKey(key.Key)) {
-                                    foreach(var funcs in joysticksAxisListenerList[key.Key]) {
+                                if(joysticksAxisListenerList.TryGetValue(key.Key, out var listener)) {
+                                    foreach(var funcs in listener) {
                                         funcs.Value(i, newValue, oldValue);
                                     }
                                 }
@@ -122,8 +122,8 @@ namespace ArmyAnt.Manager {
                                 var oldValue = axesStatusMap[key.Key];
                                 var newValue = Input.GetAxis(key.Value + i);
                                 axesStatusMap[key.Key] = newValue;
-                                if(joysticksAxisListenerList.ContainsKey(key.Key)) {
-                                    foreach(var funcs in joysticksAxisListenerList[key.Key]) {
+                                if(joysticksAxisListenerList.TryGetValue(key.Key, out var listener)) {
+                                    foreach(var funcs in listener) {
                                         funcs.Value(i, newValue, oldValue);
                                     }
                                 }

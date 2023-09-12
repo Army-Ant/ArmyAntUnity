@@ -67,9 +67,7 @@ namespace ArmyAnt.ViewUtil {
             var uuid = id + (long)(typeid) * 0x0100000000;
             // 找到目标对象队列, 如不存在, 新建
             Queue<AViewUnit> tar;
-            if(unusePool.ContainsKey(uuid)) {
-                tar = unusePool[uuid];
-            } else {
+            if(!unusePool.TryGetValue(uuid, out tar)) {
                 tar = new Queue<AViewUnit>();
                 unusePool.Add(uuid, tar);
             }
@@ -105,9 +103,7 @@ namespace ArmyAnt.ViewUtil {
             var uuid = tarElem.GetPoolUuid();
             // 找到目标对象队列, 如不存在, 新建
             Queue<AViewUnit> tar;
-            if(unusePool.ContainsKey(uuid)) {
-                tar = unusePool[uuid];
-            } else {
+            if(!unusePool.TryGetValue(uuid, out tar)) {
                 tar = new Queue<AViewUnit>();
                 unusePool.Add(uuid, tar);
             }
