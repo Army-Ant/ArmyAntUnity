@@ -1,5 +1,5 @@
 using System.Text;
-using ArmyAnt.Manager;
+using ArmyAnt.IO;
 
 namespace ArmyAnt.Utility
 {
@@ -10,7 +10,7 @@ namespace ArmyAnt.Utility
     {
         public T UpdateLoad<T>(params string[] path)
         {
-            var f = IOManager.LoadFromFile(path);
+            var f = IOManager.Instance.LoadFromFile(path);
             if (f == null)
             {
                 return default;
@@ -24,7 +24,7 @@ namespace ArmyAnt.Utility
         {
             var str = UnityEngine.JsonUtility.ToJson(value);
             var bts = Encoding.UTF8.GetBytes(str);
-            IOManager.SaveToFile(bts, path);
+            IOManager.Instance.SaveToFile(bts, path);
         }
 
     }

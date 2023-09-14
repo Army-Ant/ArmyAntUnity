@@ -1,4 +1,4 @@
-namespace ArmyAnt.Manager {
+namespace ArmyAnt.IO {
     /// <summary>
     /// 让面板属性只读
     /// </summary>

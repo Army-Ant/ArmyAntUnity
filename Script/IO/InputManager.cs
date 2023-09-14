@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace ArmyAnt.Manager {
+namespace ArmyAnt.IO {
     public abstract class InputManager {
         public static class AndroidKeyCode {
             public const KeyCode Back = (KeyCode)6;
