@@ -12,12 +12,12 @@ public class MainMenuExtension {
         ShowInSystemExplorer(System.Environment.CurrentDirectory);
     }
 
-    [MenuItem("ArmyAnt/Directories/Data Path")]
+    [MenuItem("ArmyAnt/Directories/DataSource Path")]
     public static void Directories_DataPath() {
         ShowInSystemExplorer(Application.dataPath);
     }
 
-    [MenuItem("ArmyAnt/Directories/Persistent Data Path")]
+    [MenuItem("ArmyAnt/Directories/Persistent DataSource Path")]
     public static void Directories_PersistentDataPath() {
         ShowInSystemExplorer(Application.persistentDataPath);
     }
@@ -49,9 +49,9 @@ public class MainMenuExtension {
 
     #region Menu : Tools
 
-    [MenuItem("ArmyAnt/Tools/Clear Cache Data")]
+    [MenuItem("ArmyAnt/Tools/Clear Cache DataSource")]
     public static void Tools_ClearData() {
-        if(EditorUtility.DisplayDialog("Clear Cache Data", "是否确实要清空所有缓存？", "OK", "Cancel")) {
+        if(EditorUtility.DisplayDialog("Clear Cache DataSource", "是否确实要清空所有缓存？", "OK", "Cancel")) {
             PlayerPrefs.DeleteAll();
             Caching.ClearCache();
             DirectoryInfo di = new DirectoryInfo(Application.persistentDataPath);
